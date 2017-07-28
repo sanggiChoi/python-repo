@@ -1,7 +1,5 @@
 from flask import Flask, request, render_template, redirect, flash, json, abort, jsonify, make_response
-# from random import choice, sample
 import requests
-# import json
 import os
 
 app = Flask(__name__)
@@ -36,7 +34,7 @@ def send_messages():
     if not request.json:
         abort(400)
 
-    url = 'https://hooks.slack.com/services/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'
+    url = os.environ['WEBHOOK_URL']
 
     # Send a JSONified version of your payload to the URL Slack provides
     r = requests.post(url, data=json.dumps(request.json))
@@ -64,8 +62,7 @@ def index():
         # ]
     }
     # Your secret URL sourced in from secrets.sh
-    # url = os.environ['WEBHOOK_URL']
-    url = 'https://hooks.slack.com/services/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'
+    url = os.environ['WEBHOOK_URL']
 
     # Send a JSONified version of your payload to the URL Slack provides
     r = requests.post(url, data=json.dumps(payload))
